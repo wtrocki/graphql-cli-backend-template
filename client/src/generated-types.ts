@@ -95,3 +95,126 @@ export type QueryFindNotesArgs = {
 export type QueryFindCommentsArgs = {
   fields: CommentFilter
 };
+export type CommentFieldsFragment = (
+  { __typename?: 'Comment' }
+  & Pick<Comment, 'id' | 'title' | 'description'>
+);
+
+export type NoteFieldsFragment = (
+  { __typename?: 'Note' }
+  & Pick<Note, 'id' | 'title' | 'description'>
+);
+
+export type FindAllCommentsQueryVariables = {};
+
+
+export type FindAllCommentsQuery = (
+  { __typename?: 'Query' }
+  & { findAllComments: Array<(
+    { __typename?: 'Comment' }
+    & CommentFieldsFragment
+  )> }
+);
+
+export type FindAllNotesQueryVariables = {};
+
+
+export type FindAllNotesQuery = (
+  { __typename?: 'Query' }
+  & { findAllNotes: Array<(
+    { __typename?: 'Note' }
+    & NoteFieldsFragment
+  )> }
+);
+
+export type FindCommentQueryVariables = {
+  id: Scalars['ID'],
+  title: Scalars['String'],
+  description: Scalars['String']
+};
+
+
+export type FindCommentQuery = (
+  { __typename?: 'Query' }
+  & { findComments: Array<(
+    { __typename?: 'Comment' }
+    & CommentFieldsFragment
+  )> }
+);
+
+export type FindNoteQueryVariables = {
+  id: Scalars['ID'],
+  title: Scalars['String'],
+  description: Scalars['String']
+};
+
+
+export type FindNoteQuery = (
+  { __typename?: 'Query' }
+  & { findNotes: Array<(
+    { __typename?: 'Note' }
+    & NoteFieldsFragment
+  )> }
+);
+
+export type CreateCommentMutationVariables = {
+  id: Scalars['ID'],
+  title: Scalars['String'],
+  description: Scalars['String'],
+  noteId: Scalars['ID']
+};
+
+
+export type CreateCommentMutation = (
+  { __typename?: 'Mutation' }
+  & { createComment: (
+    { __typename?: 'Comment' }
+    & CommentFieldsFragment
+  ) }
+);
+
+export type CreateNoteMutationVariables = {
+  id: Scalars['ID'],
+  title: Scalars['String'],
+  description: Scalars['String']
+};
+
+
+export type CreateNoteMutation = (
+  { __typename?: 'Mutation' }
+  & { createNote: (
+    { __typename?: 'Note' }
+    & NoteFieldsFragment
+  ) }
+);
+
+export type UpdateCommentMutationVariables = {
+  id: Scalars['ID'],
+  title: Scalars['String'],
+  description: Scalars['String'],
+  noteId: Scalars['ID']
+};
+
+
+export type UpdateCommentMutation = (
+  { __typename?: 'Mutation' }
+  & { updateComment: (
+    { __typename?: 'Comment' }
+    & CommentFieldsFragment
+  ) }
+);
+
+export type UpdateNoteMutationVariables = {
+  id: Scalars['ID'],
+  title: Scalars['String'],
+  description: Scalars['String']
+};
+
+
+export type UpdateNoteMutation = (
+  { __typename?: 'Mutation' }
+  & { updateNote: (
+    { __typename?: 'Note' }
+    & NoteFieldsFragment
+  ) }
+);
