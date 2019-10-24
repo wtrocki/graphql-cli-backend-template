@@ -1,4 +1,6 @@
-schema: ./src/schema/**/*.ts
+schema: 
+  - ./src/schema/**/*.ts:
+      require: ts-node/register
 documents: ./client/src/graphql/**/*.ts
 extensions:
   generate:

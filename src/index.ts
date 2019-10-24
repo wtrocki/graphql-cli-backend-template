@@ -6,7 +6,8 @@ import { ApolloServer, makeExecutableSchema } from "apollo-server-express"
 
 import config from "./config/config"
 import { connect } from "./db"
-import { resolvers, typeDefs } from "./mapping"
+import { resolvers } from './resolvers';
+import { typeDefs } from './schema';
 import { pubsub } from './subscriptions'
 
 async function start() {
