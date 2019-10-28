@@ -1,4 +1,4 @@
-## apollo-starter-ts
+## GraphQL CLI Basic Template
 
 Starter template using graphback and apollo-server
 
@@ -10,10 +10,10 @@ docker-compose up -d
 ```
 - Generate resources(schema and resolvers) and create database
 ```
-graphback generate
-graphback db
+yarn graphql generate --db
+yarn graphql --backend
 ```
 - Start the server
 ```
-npm start
+yarn start
 ```
