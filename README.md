@@ -1,9 +1,9 @@
 ## GraphQL CLI Basic Template
 
-Starter template using graphback and apollo-server
+Starter template using GraphQL CLI.
 
 ### Usage
-The project has been created using `graphback`. Run the project using the following steps. 
+The project has been created using GraphQL CLI. Run the project using the following steps. 
 - Start the database
 ```
 docker-compose up -d
