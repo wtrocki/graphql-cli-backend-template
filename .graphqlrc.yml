@@ -24,7 +24,7 @@ extensions:
     folders:
       model: ./model
       resolvers: ./src/resolvers
-      schema: ./src/schemax
+      schema: ./src/schema
 
   codegen:
     src/generated-types.ts:
