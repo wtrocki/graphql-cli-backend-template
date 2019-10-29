@@ -23,7 +23,6 @@
   },
   "devDependencies": {
     "@graphql-codegen/typescript": "latest",
-    "@graphql-codegen/typescript-operations": "latest",
     "@graphql-codegen/typescript-resolvers": "latest",
     "@test-graphql-cli/codegen": "latest",
     "@test-graphql-cli/diff": "latest",
