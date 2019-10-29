@@ -1,7 +1,6 @@
 schema: 
   - ./src/schema/**/*.ts:
       require: ts-node/register
-documents: ./client/src/graphql/**/*.ts
 extensions:
   generate:
     db:
@@ -25,13 +24,9 @@ extensions:
     folders:
       model: ./model
       resolvers: ./src/resolvers
-      schema: ./src/schema
-      client: ./client/src/graphql
+      schema: ./src/schemax
 
   codegen:
     src/generated-types.ts:
       - typescript
       - typescript-resolvers
-    client/src/generated-types.ts:
-      - typescript
-      - typescript-operations

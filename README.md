@@ -1,6 +1,6 @@
-## GraphQL CLI Basic Template
+## GraphQL CLI Basic Backend Template
 
-Starter template using GraphQL CLI.
+Starter backend template using GraphQL CLI.
 
 ### Usage
 The project has been created using GraphQL CLI. Run the project using the following steps. 
