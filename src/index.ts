@@ -1,24 +1,33 @@
-import cors from "cors"
-import express from "express"
-import http from "http"
+import cors from 'cors';
+import express from 'express';
+import http from 'http';
 
-import { ApolloServer, makeExecutableSchema } from "apollo-server-express"
+import graphqlHTTP from 'express-graphql'
+import { execute, subscribe } from 'graphql';
+import { loadConfig } from 'graphql-config';
+import { makeExecutableSchema } from 'graphql-tools';
+import { SubscriptionServer } from 'subscriptions-transport-ws';
 
-import config from "./config/config"
-import { connect } from "./db"
+import { connect } from './db'
 import { resolvers } from './resolvers';
 import { typeDefs } from './schema';
-import { pubsub } from './subscriptions'
+import { pubsub } from './subscriptions';
 
 async function start() {
-  const app = express()
+  const app = express();
 
-  app.use(cors())
+  app.use(cors());
 
-  app.get("/health", (req, res) => res.sendStatus(200))
+  app.get('/health', (req, res) => res.sendStatus(200));
+
+  const config = await loadConfig({
+    extensions: [() => ({ name: 'generate'})]
+  });
+
+  const generateConfig = await config!.getDefault().extension('generate');
 
   // connect to db
-  const client = await connect(config.db);
+  const db = await connect(generateConfig.db.dbConfig);
 
   const schema = makeExecutableSchema({
     typeDefs,
@@ -28,31 +37,36 @@ async function start() {
     }
   });
 
-  const apolloConfig = {
-    schema,
-    context: async ({
-      req
-    }: {req: express.Request}) => {
-      // pass request + db ref into context for each resolver
-      return {
-        req: req,
-        db: client,
+  app.use('/graphql', graphqlHTTP(
+    (req) => ({
+      schema,
+      context: {
+        req,
+        db,
         pubsub
-      }
+      },
+      graphiql: process.env.NODE_ENV !== 'production',
+    }),
+  ));
+
+  const server = http.createServer(app);
+
+  SubscriptionServer.create(
+    {
+      schema,
+      execute,
+      subscribe
+    },
+    {
+      server,
+      path: '/graphql'
     }
-  }
+  );
 
-  const apolloServer = new ApolloServer(apolloConfig)
-
-  apolloServer.applyMiddleware({ app })
-
-  const httpServer = http.createServer(app)
-  apolloServer.installSubscriptionHandlers(httpServer)
-
-  httpServer.listen({ port: config.port }, () => {
-    console.log(`🚀  Server ready at http://localhost:${config.port}/graphql`)
+  const port = process.env.PORT || 4000;
+  server.listen({ port }, () => {
+    console.log(`🚀  Server ready at http://localhost:${port}/graphql`)
   })
 }
 
-start().catch(err => console.error(err));
-
+start().catch((err) => console.error(err));
