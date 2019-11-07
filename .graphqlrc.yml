@@ -5,12 +5,8 @@ extensions:
   generate:
     db:
       dbConfig:
-        user: postgresql
-        password: postgres
-        database: users
-        host: localhost
-        port: 55432
-      database: pg
+        filename: ./db.sqlite
+      database: sqlite3
     graphqlCRUD:
       create: true
       update: true
